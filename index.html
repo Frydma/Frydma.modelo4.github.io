@@ -4,117 +4,444 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Módulo 4: Promoción de Destinos Turísticos con IA - Alta Competitividad</title>
-  <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://unpkg.com/lucide@latest"></script>
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap');
+    
+    /* STYLES VANILLA (Reemplazo total de Tailwind para independencia de CDN) */
+    * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
       font-family: 'Plus Jakarta Sans', sans-serif;
       background-color: #F8FAFC;
+      color: #1E293B;
+      line-height: 1.6;
       scroll-behavior: smooth;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
     }
+
+    /* Header & Gradient */
     .gradient-brand {
       background: linear-gradient(135deg, #2E0854 0%, #4C1D95 50%, #7C2D12 100%);
+      color: #FFFFFF;
+      padding: 4rem 1.5rem;
+      position: relative;
+      overflow: hidden;
+      border-bottom: 1px solid #020617;
+      box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
     }
-    .interactive-card {
-      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    .header-container {
+      max-width: 1150px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+      position: relative;
+      z-index: 10;
     }
-    .interactive-card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.05), 0 8px 10px -6px rgb(0 0 0 / 0.05);
+    @media (min-width: 768px) {
+      .header-container { flex-direction: row; justify-content: space-between; align-items: center; }
     }
+
+    /* Logos Bar */
+    .brand-logos {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+    .brand-logos img {
+      height: 48px;
+      width: auto;
+      object-fit: contain;
+      border-radius: 6px;
+      background-color: rgba(255, 255, 255, 0.9);
+      padding: 4px;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+    }
+    .brand-logos img.dark-logo {
+      background-color: #000000;
+      border: 1px solid #334155;
+    }
+
+    /* Badges */
+    .badges-flex { display: flex; flex-wrap: wrap; items-center: center; gap: 0.5rem; }
+    .badge-mod {
+      background: linear-gradient(to right, #A855F7, #EA580C);
+      color: #FFF;
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      padding: 4px 12px;
+      border-radius: 6px;
+    }
+    .badge-sub {
+      background-color: rgba(2, 6, 23, 0.8);
+      color: #D8B4FE;
+      font-size: 0.75rem;
+      font-weight: 600;
+      padding: 4px 10px;
+      border-radius: 6px;
+      border: 1px solid #6B21A8;
+    }
+
+    /* Header Typography */
+    .header h1 {
+      font-size: 2.25rem;
+      font-weight: 800;
+      letter-spacing: -0.025em;
+      line-height: 1.1;
+      margin-top: 1rem;
+      color: #FFFFFF;
+    }
+    @media (min-width: 768px) { .header h1 { font-size: 3.75rem; } }
+    .header p {
+      color: rgba(233, 213, 255, 0.9);
+      margin-top: 1rem;
+      font-size: 1rem;
+      font-weight: 300;
+      max-width: 42rem;
+    }
+    @media (min-width: 768px) { .header p { font-size: 1.25rem; } }
+
+    /* Academic Card */
+    .academic-card {
+      background-color: rgba(2, 6, 23, 0.8);
+      border: 1px solid #6B21A8;
+      border-radius: 1rem;
+      padding: 1.5rem;
+      text-align: center;
+      min-width: 200px;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+      flex-shrink: 0;
+    }
+    .academic-card .tag { font-size: 0.75rem; color: #C084FC; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; }
+    .academic-card .hours {
+      font-size: 3rem;
+      font-weight: 900;
+      background: linear-gradient(to right, #C084FC, #FB923C);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin: 0.25rem 0;
+    }
+    .academic-card .breakdown {
+      border-top: 1px solid rgba(107, 33, 168, 0.6);
+      padding-top: 0.5rem;
+      margin-top: 0.5rem;
+      font-size: 11px;
+      color: #CBD5E1;
+    }
+    .academic-card .row { display: flex; justify-content: space-between; margin-bottom: 0.25rem; }
+
+    /* Sticky Navbar */
+    .sticky-nav {
+      background-color: rgba(255, 255, 255, 0.95);
+      border-bottom: 1px solid #E2E8F0;
+      padding: 1rem 1.5rem;
+      position: sticky;
+      top: 0;
+      z-index: 40;
+      box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    }
+    .nav-wrapper {
+      max-width: 1150px;
+      margin: 0 auto;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      color: #64748B;
+    }
+    .nav-links { display: flex; flex-wrap: wrap; gap: 1rem; }
+    @media (min-width: 768px) { .nav-links { gap: 1.5rem; } }
+    .nav-links a { text-decoration: none; color: inherit; display: flex; align-items: center; gap: 0.25rem; }
+    .nav-links a:hover { color: #6B21A8; }
+    .nav-links a.active { color: #6B21A8; font-weight: 700; }
+    .pill { background-color: #F1F5F9; color: #334155; padding: 2px 6px; border-radius: 4px; font-size: 10px; }
+    .pill-purple { background-color: #F3E8FF; color: #6B21A8; }
+
+    /* Main Container & Sections */
+    main { max-width: 1150px; margin: 0 auto; padding: 3rem 1.5rem; width: 100%; flex-grow: 1; }
+    .section-spacing { margin-bottom: 4rem; }
+    .card-section {
+      background-color: #FFFFFF;
+      border-radius: 1.5rem;
+      padding: 1.5rem;
+      box-shadow: 0 1px 3px 0 rgba(0,0,0,0.1);
+      border: 1px solid rgba(226, 232, 240, 0.6);
+      scroll-margin-top: 5rem;
+    }
+    @media (min-width: 768px) { .card-section { padding: 2.5rem; } }
+
+    .sec-header { display: flex; align-items: center; gap: 0.75rem; border-bottom: 1px solid #F1F5F9; padding-bottom: 1.25rem; margin-bottom: 2rem; }
+    .sec-icon { padding: 0.625rem; border-radius: 0.75rem; display: flex; align-items: center; justify-content: center; }
+    .sec-icon.purple { background-color: #F3E8FF; color: #7E22CE; }
+    .sec-icon.orange { background-color: #FFEDD5; color: #C2410C; }
+    .sec-icon.emerald { background-color: #D1FAE5; color: #047857; }
+    .sec-icon.dark { background-color: rgba(168, 85, 247, 0.1); color: #C084FC; border: 1px solid rgba(168, 85, 247, 0.2); }
+    
+    .sec-header h2 { font-size: 1.5rem; font-weight: 700; color: #0F172A; letter-spacing: -0.025em; }
+    @media (min-width: 768px) { .sec-header h2 { font-size: 1.875rem; } }
+    .sec-header p { color: #64748B; font-size: 0.75rem; margin-top: 0.125rem; }
+    @media (min-width: 768px) { .sec-header p { font-size: 0.875rem; } }
+
+    /* Layout Grids */
+    .grid-12 { display: grid; grid-template-columns: 1fr; gap: 2rem; align-items: center; }
+    @media (min-width: 1024px) { .grid-12 { grid-template-columns: repeat(12, 1fr); } }
+    .col-7 { grid-column: span 1; }
+    .col-5 { grid-column: span 1; }
+    @media (min-width: 1024px) { .col-7 { grid-column: span 7; } .col-5 { grid-column: span 5; } }
+
+    .grid-3 { display: grid; grid-template-columns: 1fr; gap: 2rem; }
+    @media (min-width: 1024px) { .grid-3 { grid-template-columns: repeat(3, 1fr); } }
+    .span-2 { grid-column: span 1; }
+    @media (min-width: 1024px) { .span-2 { grid-column: span 2; } }
+
+    /* Content Styling */
+    .text-content { color: #475569; font-size: 0.875rem; line-height: 1.625; }
+    @media (min-width: 768px) { .text-content { font-size: 1rem; } }
+    .text-content p { margin-bottom: 1rem; }
+
+    .callout {
+      background-color: rgba(243, 232, 255, 0.6);
+      border-radius: 1rem;
+      padding: 1.25rem;
+      border: 1px solid rgba(233, 213, 255, 0.6);
+      display: flex;
+      gap: 1rem;
+      align-items: flex-start;
+      box-shadow: 0 1px 2px 0 rgba(0,0,0,0.05);
+    }
+    .callout strong { color: #3B0764; display: block; margin-bottom: 0.25rem; font-weight: 600; font-size: 0.875rem; }
+
+    /* Media Cards */
+    .media-card {
+      border-radius: 1rem;
+      overflow: hidden;
+      box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+      border: 1px solid #F1F5F9;
+      background-color: #FFFFFF;
+      padding: 0.75rem;
+    }
+    .media-card img { width: 100%; height: 14rem; object-fit: cover; border-radius: 0.75rem; margin-bottom: 1rem; }
+    .media-card-body { background-color: #0F172A; padding: 0.75rem; border-radius: 0.75rem; color: #FFFFFF; }
+    .media-card-title { color: #FB923C; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; display: flex; align-items: center; gap: 0.25rem; margin-bottom: 0.25rem; }
+    .media-card-desc { font-size: 11px; color: #CBD5E1; font-weight: 300; }
+
+    /* Info Boxes */
+    .info-box {
+      background-color: #F8FAFC;
+      border: 1px solid rgba(226, 232, 240, 0.6);
+      border-radius: 1rem;
+      padding: 1.25rem;
+      font-size: 0.75rem;
+      color: #475569;
+    }
+    .info-box h4 { font-weight: 700; color: #0F172A; text-transform: uppercase; letter-spacing: 0.05em; display: flex; align-items: center; gap: 0.5rem; border-bottom: 1px solid #E2E8F0; padding-bottom: 0.5rem; margin-bottom: 0.75rem; }
+
+    /* Dark Lab Section */
+    .dark-section {
+      background-color: #020617;
+      color: #FFFFFF;
+      border-radius: 1.5rem;
+      padding: 1.5rem;
+      box-shadow: 0 25px 50px -12px rgba(0,0,0,0.25);
+      position: relative;
+      overflow: hidden;
+      border: 1px solid #1E293B;
+      scroll-margin-top: 5rem;
+    }
+    @media (min-width: 768px) { .dark-section { padding: 2.5rem; } }
+    .dark-section .sec-header { border-bottom-color: #1E293B; }
+    .dark-section .sec-header h2 { color: #FFFFFF; }
+    .dark-section .sec-header p { color: #94A3B8; }
+
+    .lab-grid { display: grid; grid-template-columns: 1fr; gap: 1.25rem; margin-bottom: 2.5rem; font-size: 0.75rem; font-weight: 300; }
+    @media (min-width: 1024px) { .lab-grid { grid-template-columns: repeat(3, 1fr); font-size: 0.875rem; } }
+    .lab-box { background-color: #0F172A; border: 1px solid #1E293B; padding: 1rem; border-radius: 0.75rem; }
+    .lab-box-title { font-weight: 700; display: block; text-transform: uppercase; letter-spacing: 0.05em; font-size: 11px; margin-bottom: 0.25rem; }
+
+    /* Prompt Box */
+    .prompt-box {
+      background-color: #020617;
+      color: #CBD5E1;
+      border-radius: 0.75rem;
+      padding: 1.25rem;
+      position: relative;
+      font-family: monospace;
+      font-size: 0.75rem;
+      border: 1px solid #1E293B;
+      box-shadow: inset 0 2px 4px 0 rgba(0, 0, 0, 0.06);
+      margin-top: 1rem;
+    }
+    @media (min-width: 768px) { .prompt-box { font-size: 0.875rem; } }
+    .prompt-btn {
+      position: absolute;
+      right: 0.75rem;
+      top: 0.75rem;
+      background-color: #9333EA;
+      color: #FFFFFF;
+      font-size: 0.75rem;
+      font-weight: 700;
+      padding: 0.375rem 0.75rem;
+      border-radius: 0.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.375rem;
+      border: none;
+      cursor: pointer;
+      box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    }
+    .prompt-btn:hover { background-color: #7E22CE; }
+    .prompt-code { white-space: pre-line; padding-right: 4rem; padding-top: 1rem; line-height: 1.625; color: #94A3B8; user-select: all; }
+
+    /* Step Timeline */
+    .steps-timeline { border-left: 1px solid #1E293B; padding-left: 1.5rem; margin-left: 0.5rem; position: relative; }
+    .step-item { position: relative; margin-bottom: 2rem; }
+    .step-number {
+      position: absolute;
+      left: -2.2rem;
+      top: 0.125rem;
+      background-color: #0F172A;
+      color: #CBD5E1;
+      border: 1px solid #334155;
+      width: 1.25rem;
+      height: 1.25rem;
+      border-radius: 9999px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.75rem;
+      font-weight: 700;
+    }
+
+    /* Toast Notification */
+    .toast {
+      position: fixed;
+      bottom: 1.5rem;
+      right: 1.5rem;
+      background-color: #0F172A;
+      border: 1px solid #1E293B;
+      color: #FFFFFF;
+      font-size: 0.875rem;
+      padding: 1rem 1.5rem;
+      border-radius: 1rem;
+      box-shadow: 0 25px 50px -12px rgba(0,0,0,0.25);
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      transform: translateY(1rem);
+      opacity: 0;
+      pointer-events: none;
+      transition: all 0.3s ease;
+      z-index: 50;
+    }
+    .toast.show { opacity: 1; transform: translateY(0); pointer-events: auto; }
+    .toast-icon { width: 1.25rem; height: 1.25rem; background-color: #10B981; color: #020617; border-radius: 9999px; display: flex; align-items: center; justify-content: center; }
+
+    /* Footer */
+    footer { background-color: #020617; color: #94A3B8; text-align: center; padding: 2rem 1.5rem; border-top: 1px solid #0F172A; font-size: 0.75rem; }
+    .footer-logos { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 1.5rem; margin-bottom: 1rem; }
+    .footer-logos img { height: 40px; width: auto; object-fit: contain; border-radius: 6px; background-color: rgba(255,255,255,0.9); padding: 4px; }
   </style>
 </head>
-<body class="text-slate-800 min-h-screen flex flex-col justify-between antialiased">
+<body>
 
-  <header class="gradient-brand text-white py-20 px-6 md:px-12 relative overflow-hidden shadow-xl border-b border-slate-950">
-    <div class="absolute -right-24 -top-24 w-96 h-96 bg-purple-600 opacity-20 rounded-full blur-3xl"></div>
-    <div class="absolute left-1/4 bottom-0 w-80 h-80 bg-orange-500 opacity-15 rounded-full blur-3xl"></div>
-    <div class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1517604931442-7e0c8ed2963c?auto=format&fit=crop&w=1600&q=80')] bg-cover bg-center mix-blend-overlay opacity-15"></div>
+  <!-- HEADER -->
+  <header class="gradient-brand header">
+    <div style="position: absolute; right: -6rem; top: -6rem; width: 24rem; height: 24rem; background-color: #9333EA; opacity: 0.2; border-radius: 9999px; filter: blur(48px);"></div>
+    <div style="position: absolute; left: 25%; bottom: 0; width: 20rem; height: 20rem; background-color: #F97316; opacity: 0.15; border-radius: 9999px; filter: blur(48px);"></div>
 
-    <div class="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-start md:items-center gap-8 relative z-10">
-      <div class="max-w-3xl">
+    <div class="header-container">
+      <div>
+        <div class="brand-logos">
+          <img src="cropped-logo-cetasdi-actualizado.jpg.jpeg" alt="Logo Cetasdi" onerror="this.style.display='none'">
+          <img src="logo-la-ceja.jpg" alt="Escudo La Ceja" class="dark-logo" onerror="this.style.display='none'">
+          <img src="logo-la-ceja-cuida-y-florece.png" alt="Logo La Ceja Cuida y Florece" onerror="this.style.display='none'">
+        </div>
+
+        <div class="badges-flex">
+          <span class="badge-mod">Módulo 4</span>
+          <span class="badge-sub">Posicionamiento y Video Marketing</span>
+        </div>
+
+        <h1>Promoción de Destinos <br style="display: none;" class="md-inline">Turísticos con IA</h1>
         
-        <div class="flex flex-wrap items-center gap-4 mb-6">
-          <img src="cropped-logo-cetasdi-actualizado.jpg.jpeg" alt="Logo Cetasdi" class="h-12 w-auto object-contain rounded-md bg-white/90 p-1 shadow-sm">
-          <img src="logo-la-ceja.png" alt="Logo La Ceja" class="h-12 w-auto object-contain rounded-md bg-white/90 p-1 shadow-sm">
-          <img src="logo-la-ceja-cuida-y-florece.png" alt="Logo La Ceja Cuida y Florece" class="h-12 w-auto object-contain rounded-md bg-white/90 p-1 shadow-sm">
-        </div>
-
-        <div class="flex flex-wrap items-center gap-2">
-          <span class="bg-gradient-to-r from-purple-500 to-orange-600 text-white text-xs font-bold uppercase tracking-widest px-3 py-1 rounded-md shadow-sm">Módulo 4</span>
-          <span class="bg-slate-950/80 text-purple-300 text-xs font-semibold px-2.5 py-1 rounded-md border border-purple-800 backdrop-blur-sm">Posicionamiento y Video Marketing</span>
-        </div>
-        <h1 class="text-4xl md:text-6xl font-extrabold mt-4 tracking-tight leading-none text-white">
-          Promoción de Destinos <br class="hidden md:inline">Turísticos con IA
-        </h1>
-        <p class="text-purple-100/90 mt-4 text-base md:text-xl leading-relaxed font-light max-w-2xl">
+        <p>
           Estructura de <strong>6 horas académicas</strong>. Domina los algoritmos de recomendación, la ingeniería de guiones de alto impacto y la producción automatizada de campañas audiovisuales para los atractivos locales.
         </p>
       </div>
       
-      <div class="bg-slate-950/80 backdrop-blur-lg border border-purple-800 rounded-2xl p-6 text-center min-w-[200px] shadow-2xl shrink-0 self-stretch md:self-auto flex flex-col justify-center">
-        <span class="block text-xs text-purple-400 font-bold uppercase tracking-wider">Carga Académica</span>
-        <span class="block text-5xl font-black text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-orange-400 my-1">6 Horas</span>
-        <div class="text-[11px] text-slate-300 block border-t border-purple-800/60 pt-2 mt-2 font-medium">
-          <div class="flex justify-between mb-1"><span>Estrategia y SEO</span><span class="text-purple-400">2h</span></div>
-          <div class="flex justify-between"><span>Producción de Video</span><span class="text-orange-400">4h</span></div>
+      <div class="academic-card">
+        <span class="tag">Carga Académica</span>
+        <div class="hours">6 Horas</div>
+        <div class="breakdown">
+          <div class="row"><span>Estrategia y SEO</span><span style="color: #C084FC;">2h</span></div>
+          <div class="row"><span>Producción de Video</span><span style="color: #FB923C;">4h</span></div>
         </div>
       </div>
     </div>
   </header>
 
-  <div class="bg-white border-b border-slate-200 py-4 px-6 sticky top-0 z-40 shadow-sm backdrop-blur-md bg-white/95">
-    <div class="max-w-6xl mx-auto flex flex-wrap items-center justify-between gap-4 text-xs font-semibold uppercase tracking-wider text-slate-500">
-      <span class="flex items-center gap-1.5 text-slate-900 font-bold"><i data-lucide="compass" class="w-4 h-4 text-purple-600"></i> Ruta de Aprendizaje:</span>
-      <div class="flex flex-wrap gap-4 md:gap-6">
-        <a href="#posicionamiento" class="hover:text-purple-700 transition-colors flex items-center gap-1"><span>01. SEO y Algoritmos</span> <span class="bg-slate-100 text-slate-700 px-1.5 py-0.5 rounded text-[10px]">1h</span></a>
-        <a href="#campanas" class="hover:text-purple-700 transition-colors flex items-center gap-1"><span>02. Campañas Digitales</span> <span class="bg-slate-100 text-slate-700 px-1.5 py-0.5 rounded text-[10px]">1h</span></a>
-        <a href="#experiencias" class="hover:text-purple-700 transition-colors flex items-center gap-1"><span>03. Innovación Local</span> <span class="bg-slate-100 text-slate-700 px-1.5 py-0.5 rounded text-[10px]">1h</span></a>
-        <a href="#laboratorio-cuatro" class="text-purple-700 font-bold flex items-center gap-1"><span>04. Laboratorio de Video</span> <span class="bg-purple-100 text-purple-800 px-1.5 py-0.5 rounded text-[10px]">3h</span></a>
+  <!-- NAVEGACIÓN STICKY -->
+  <div class="sticky-nav">
+    <div class="nav-wrapper">
+      <span style="display: flex; align-items: center; gap: 0.375rem; color: #0F172A; font-weight: 700;">
+        <i data-lucide="compass" style="width: 1rem; height: 1rem; color: #9333EA;"></i> Ruta de Aprendizaje:
+      </span>
+      <div class="nav-links">
+        <a href="#posicionamiento"><span>01. SEO y Algoritmos</span> <span class="pill">1h</span></a>
+        <a href="#campanas"><span>02. Campañas Digitales</span> <span class="pill">1h</span></a>
+        <a href="#experiencias"><span>03. Innovación Local</span> <span class="pill">1h</span></a>
+        <a href="#laboratorio-cuatro" class="active"><span>04. Laboratorio de Video</span> <span class="pill pill-purple">3h</span></a>
       </div>
     </div>
   </div>
 
-  <main class="max-w-6xl mx-auto px-4 md:px-8 py-12 w-full flex-grow space-y-16">
+  <!-- MAIN -->
+  <main>
     
-    <section id="posicionamiento" class="bg-white rounded-3xl p-6 md:p-10 shadow-sm border border-slate-200/60 scroll-mt-20">
-      <div class="flex items-center gap-3 border-b border-slate-100 pb-5 mb-8">
-        <div class="p-2.5 bg-purple-50 rounded-xl text-purple-700">
-          <i data-lucide="search" class="w-6 h-6"></i>
-        </div>
+    <!-- SECCIÓN 1 -->
+    <section id="posicionamiento" class="card-section section-spacing">
+      <div class="sec-header">
+        <div class="sec-icon purple"><i data-lucide="search" style="width: 1.5rem; height: 1.5rem;"></i></div>
         <div>
-          <h2 class="text-2xl md:text-3xl font-bold text-slate-900 tracking-tight">1. Posicionamiento de Destinos y SEO Local</h2>
-          <p class="text-slate-500 text-xs md:text-sm mt-0.5">Cómo hackear los algoritmos de recomendación de Instagram, TikTok y Google Maps usando IA.</p>
+          <h2>1. Posicionamiento de Destinos y SEO Local</h2>
+          <p>Cómo hackear los algoritmos de recomendación de Instagram, TikTok y Google Maps usando IA.</p>
         </div>
       </div>
 
-      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-        <div class="lg:col-span-7 space-y-5 text-slate-600 leading-relaxed text-sm md:text-base">
+      <div class="grid-12">
+        <div class="col-7 text-content">
           <p>
             Los turistas modernos ya no usan agencias de viaje tradicionales; buscan sus próximos destinos en las barras de búsqueda de las redes sociales o en mapas interactivos. El <strong>SEO Local (Search Engine Optimization)</strong> aplicado al turismo consiste en identificar de forma matemática los términos que los usuarios de Medellín digitan cuando quieren viajar.
           </p>
           <p>
             Al entrenar a la IA con datos geográficos de <strong>La Ceja</strong>, los estudiantes pueden extraer listados de palabras clave indexables (ej: <em>"glampings cerca a Medellín", "rutas de ciclismo en Antioquia", "postres tradicionales tradicionales"</em>) para inyectarlas estratégicamente en los títulos, descripciones y hashtags de sus canales, obligando al algoritmo a recomendar sus negocios de forma orgánica.
           </p>
-          <div class="bg-purple-50/60 rounded-2xl p-5 border border-purple-100/60 flex gap-4 items-start shadow-sm">
-            <i data-lucide="sparkles" class="w-6 h-6 text-purple-800 shrink-0 mt-0.5"></i>
+          <div class="callout">
+            <i data-lucide="sparkles" style="width: 1.5rem; height: 1.5rem; color: #6B21A8; flex-shrink: 0; margin-top: 0.125rem;"></i>
             <div>
-              <strong class="text-purple-950 block mb-1 font-semibold text-sm">La Regla de Oro del Algoritmo Social:</strong>
+              <strong>La Regla de Oro del Algoritmo Social:</strong>
               Las plataformas premian la retención. Un contenido optimizado con palabras clave atrae al público correcto, pero un video estructurado lógicamente retiene al usuario, multiplicando el alcance orgánico sin necesidad de pagar pauta publicitaria.
             </div>
           </div>
         </div>
 
-        <div class="lg:col-span-5 relative group">
-          <div class="absolute inset-0 bg-gradient-to-tr from-purple-600 to-orange-500 rounded-2xl opacity-10 blur-xl group-hover:opacity-20 transition-all duration-500"></div>
-          <div class="relative rounded-2xl overflow-hidden shadow-md border border-slate-100 bg-white p-3">
-            <img src="https://images.unsplash.com/photo-1611162617213-7d7a39e9b1d7?auto=format&fit=crop&w=600&q=80" alt="Estrategia en Redes Sociales" class="w-full h-56 object-cover rounded-xl mb-4">
-            <div class="px-2 py-1 bg-slate-900 rounded-xl text-white">
-              <span class="block text-xs font-bold uppercase tracking-wider text-orange-400 mb-1 flex items-center gap-1">
-                <i data-lucide="trending-up" class="w-3 h-3"></i> Indexación Orgánica Inteligente
-              </span>
-              <p class="text-[11px] text-slate-300 font-light leading-normal">
+        <div class="col-5">
+          <div class="media-card">
+            <img src="https://images.unsplash.com/photo-1611162617213-7d7a39e9b1d7?auto=format&fit=crop&w=600&q=80" alt="Estrategia en Redes Sociales">
+            <div class="media-card-body">
+              <span class="media-card-title"><i data-lucide="trending-up" style="width: 0.75rem; height: 0.75rem;"></i> Indexación Orgánica Inteligente</span>
+              <p class="media-card-desc">
                 El posicionamiento SEO estructurado con IA permite que pequeños prestadores rurales compitan en las mismas condiciones visibilidad que las grandes cadenas hoteleras.
               </p>
             </div>
@@ -123,19 +450,18 @@
       </div>
     </section>
 
-    <section id="campanas" class="bg-white rounded-3xl p-6 md:p-10 shadow-sm border border-slate-200/60 scroll-mt-20">
-      <div class="flex items-center gap-3 border-b border-slate-100 pb-5 mb-8">
-        <div class="p-2.5 bg-orange-50 rounded-xl text-orange-700">
-          <i data-lucide="megaphone" class="w-6 h-6"></i>
-        </div>
+    <!-- SECCIÓN 2 -->
+    <section id="campanas" class="card-section section-spacing">
+      <div class="sec-header">
+        <div class="sec-icon orange"><i data-lucide="megaphone" style="width: 1.5rem; height: 1.5rem;"></i></div>
         <div>
-          <h2 class="text-2xl md:text-3xl font-bold text-slate-900 tracking-tight">2. Campañas Promocionales y Video Marketing con IA</h2>
-          <p class="text-slate-500 text-xs md:text-sm mt-0.5">La estructura técnica de un video vertical de alto impacto: el gancho de retención de 3 segundos.</p>
+          <h2>2. Campañas Promocionales y Video Marketing con IA</h2>
+          <p>La estructura técnica de un video vertical de alto impacto: el gancho de retención de 3 segundos.</p>
         </div>
       </div>
 
-      <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-        <div class="lg:col-span-2 space-y-4 text-slate-600 text-sm md:text-base leading-relaxed">
+      <div class="grid-3">
+        <div class="span-2 text-content">
           <p>
             El formato de video corto vertical (Reels, TikTok y Shorts) es la herramienta de atracción masiva más potente del mercado. Sin embargo, el usuario promedio decide si quedarse o deslizar el video en los primeros <strong>3 segundos</strong>. Es allí donde la ingeniería de guiones asistida por IA se vuelve indispensable.
           </p>
@@ -144,34 +470,33 @@
           </p>
         </div>
         
-        <div class="bg-slate-50 border border-slate-200/60 rounded-2xl p-5 space-y-3 font-light text-xs text-slate-600">
-          <h4 class="font-bold text-slate-900 uppercase tracking-wider flex items-center gap-2 border-b border-slate-200 pb-2">
-            <i data-lucide="clapperboard" class="w-4 h-4 text-orange-600"></i> Estructura Cinematográfica Corta
-          </h4>
-          <p><strong>00:00 - 00:03 (Gancho):</strong> Texto dinámico en pantalla y toma en movimiento. <em>Ej: "El secreto mejor guardado a solo una hora de Medellín que nadie te quiere contar..."</em></p>
-          <p><strong>00:03 - 00:20 (Cuerpo):</strong> Tomas rápidas del atractivo, mostrando la experiencia real. <em>Ej: Senderismo en cascadas, cultivos de flores o cata de café tradicional cejeño.</em></p>
+        <div class="info-box">
+          <h4><i data-lucide="clapperboard" style="width: 1rem; height: 1rem; color: #EA580C;"></i> Estructura Cinematográfica Corta</h4>
+          <p style="margin-bottom: 0.5rem;"><strong>00:00 - 00:03 (Gancho):</strong> Texto dinámico en pantalla y toma en movimiento. <em>Ej: "El secreto mejor guardado a solo una hora de Medellín que nadie te quiere contar..."</em></p>
+          <p style="margin-bottom: 0.5rem;"><strong>00:03 - 00:20 (Cuerpo):</strong> Tomas rápidas del atractivo, mostrando la experiencia real. <em>Ej: Senderismo en cascadas, cultivos de flores o cata de café tradicional cejeño.</em></p>
           <p><strong>00:20 - 00:30 (CTA):</strong> Cierre directo. <em>Ej: "Dale guardar a este Reel y comparte con la persona con la que irás este fin de semana."</em></p>
         </div>
       </div>
     </section>
 
-    <section id="experiencias" class="bg-white rounded-3xl p-6 md:p-10 shadow-sm border border-slate-200/60 scroll-mt-20">
-      <div class="flex items-center gap-3 border-b border-slate-100 pb-5 mb-8">
-        <div class="p-2.5 bg-emerald-50 rounded-xl text-emerald-700">
-          <i data-lucide="lightbulb" class="w-6 h-6"></i>
-        </div>
+    <!-- SECCIÓN 3 -->
+    <section id="experiencias" class="card-section section-spacing">
+      <div class="sec-header">
+        <div class="sec-icon emerald"><i data-lucide="lightbulb" style="width: 1.5rem; height: 1.5rem;"></i></div>
         <div>
-          <h2 class="text-2xl md:text-3xl font-bold text-slate-900 tracking-tight">3. Creación de Experiencias Turísticas Innovadoras</h2>
-          <p class="text-slate-500 text-xs md:text-sm mt-0.5">Cómo usar modelos lógicos para diseñar productos de turismo experiencial con identidad local.</p>
+          <h2>3. Creación de Experiencias Turísticas Innovadoras</h2>
+          <p>Cómo usar modelos lógicos para diseñar productos de turismo experiencial con identidad local.</p>
         </div>
       </div>
 
-      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-        <div class="lg:col-span-5 rounded-xl overflow-hidden border border-slate-100 shadow-md">
-          <img src="https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?auto=format&fit=crop&w=500&q=80" alt="Viaje de aventura y paisajes" class="w-full h-64 object-cover">
+      <div class="grid-12">
+        <div class="col-5">
+          <div style="border-radius: 0.75rem; overflow: hidden; border: 1px solid #F1F5F9; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);">
+            <img src="https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?auto=format&fit=crop&w=500&q=80" alt="Viaje de aventura y paisajes" style="width: 100%; height: 16rem; object-fit: cover;">
+          </div>
         </div>
 
-        <div class="lg:col-span-7 space-y-4 text-slate-600 text-sm md:text-base leading-relaxed">
+        <div class="col-7 text-content">
           <p>
             El turista de alto valor ya no compra "hospedaje" o "transporte"; busca transformación, conexión e historia. En el Oriente Antioqueño, la competencia exige que los negocios tradicionales evolucionen hacia el <strong>Turismo de Experiencia</strong>. 
           </p>
@@ -182,94 +507,91 @@
       </div>
     </section>
 
-    <section id="laboratorio-cuatro" class="bg-slate-950 text-white rounded-3xl p-6 md:p-10 shadow-2xl relative overflow-hidden border border-slate-800 scroll-mt-20">
-      <div class="absolute -right-20 -bottom-20 w-80 h-80 bg-purple-600 opacity-10 rounded-full blur-3xl"></div>
-      
-      <div class="flex items-center gap-3 border-b border-slate-800 pb-5 mb-8">
-        <div class="p-2.5 bg-purple-500/10 text-purple-400 rounded-xl border border-purple-500/20">
-          <i data-lucide="video" class="w-6 h-6"></i>
-        </div>
+    <!-- SECCIÓN 4 (LABORATORIO) -->
+    <section id="laboratorio-cuatro" class="dark-section">
+      <div class="sec-header">
+        <div class="sec-icon dark"><i data-lucide="video" style="width: 1.5rem; height: 1.5rem;"></i></div>
         <div>
-          <h2 class="text-2xl md:text-3xl font-bold tracking-tight">4. Laboratorio Práctico: Producción de Video Promocional Viral</h2>
-          <p class="text-slate-400 text-xs md:text-sm mt-0.5">Taller guiado de 3 horas conectando IA de texto con la suite de edición automatizada de CapCut.</p>
+          <h2>4. Laboratorio Práctico: Producción de Video Promocional Viral</h2>
+          <p>Taller guiado de 3 horas conectando IA de texto con la suite de edición automatizada de CapCut.</p>
         </div>
       </div>
 
-      <div class="grid grid-cols-1 lg:grid-cols-3 gap-5 mb-10 text-xs md:text-sm font-light">
-        <div class="bg-slate-900 border border-slate-800 p-4 rounded-xl">
-          <span class="text-purple-400 font-bold block uppercase tracking-wider text-[11px] mb-1">El Desafío Comercial</span>
-          <span class="text-slate-300">Construir un video publicitario en formato vertical de 30 segundos, con guión de alta conversión, subtítulos dinámicos y voz artificial profesional para promocionar un destino cejeño.</span>
+      <div class="lab-grid">
+        <div class="lab-box">
+          <span class="lab-box-title" style="color: #C084FC;">El Desafío Comercial</span>
+          <span>Construir un video publicitario en formato vertical de 30 segundos, con guión de alta conversión, subtítulos dinámicos y voz artificial profesional para promocionar un destino cejeño.</span>
         </div>
-        <div class="bg-slate-900 border border-slate-800 p-4 rounded-xl">
-          <span class="text-orange-400 font-bold block uppercase tracking-wider text-[11px] mb-1">Flujo Tecnológico</span>
-          <span class="text-slate-300">Fase 1: ChatGPT/Gemini (Ingeniería de Guión Audiovisual) <br>Fase 2: Grabación o selección de recursos multimedia <br>Fase 3: CapCut IA (Edición, Voz y Subtitulado).</span>
+        <div class="lab-box">
+          <span class="lab-box-title" style="color: #FB923C;">Flujo Tecnológico</span>
+          <span>Fase 1: ChatGPT/Gemini (Ingeniería de Guión Audiovisual) <br>Fase 2: Grabación o selección de recursos multimedia <br>Fase 3: CapCut IA (Edición, Voz y Subtitulado).</span>
         </div>
-        <div class="bg-slate-900 border border-slate-800 p-4 rounded-xl">
-          <span class="text-emerald-400 font-bold block uppercase tracking-wider text-[11px] mb-1">Producto Final Entregable</span>
-          <span class="text-slate-300">Video exportado en formato MP4 subido a una carpeta compartida de Google Drive junto con el PDF de la bitácora técnica de desarrollo.</span>
+        <div class="lab-box">
+          <span class="lab-box-title" style="color: #34D399;">Producto Final Entregable</span>
+          <span>Video exportado en formato MP4 subido a una carpeta compartida de Google Drive junto con el PDF de la bitácora técnica de desarrollo.</span>
         </div>
       </div>
 
-      <h3 class="text-lg font-bold text-slate-200 mb-6 flex items-center gap-2">
-        <i data-lucide="list-ordered" class="w-5 h-5 text-purple-400"></i> Protocolo de Producción Guiada (3 Horas de Ejecución)
+      <h3 style="font-size: 1.125rem; font-weight: 700; color: #E2E8F0; margin-bottom: 1.5rem; display: flex; align-items: center; gap: 0.5rem;">
+        <i data-lucide="list-ordered" style="width: 1.25rem; height: 1.25rem; color: #C084FC;"></i> Protocolo de Producción Guiada (3 Horas de Ejecución)
       </h3>
 
-      <div class="space-y-8 text-sm md:text-base text-slate-300 border-l border-slate-800 pl-6 ml-2 relative">
+      <div class="steps-timeline">
         
-        <div class="relative">
-          <div class="absolute -left-[35px] top-0.5 bg-slate-900 text-slate-300 border border-slate-700 w-5 h-5 rounded-full flex items-center justify-center text-xs font-bold shadow-md">1</div>
-          <h4 class="font-bold text-white text-base">Paso 1: Ingeniería de Guión Audiovisual Persuasivo (1 Hora)</h4>
-          <p class="text-slate-400 text-xs md:text-sm mt-1 leading-relaxed">
-            Ingresa a tu modelo de lenguaje conversacional (<a href="https://chatgpt.com" target="_blank" class="text-purple-400 underline hover:text-purple-300">ChatGPT</a> o <a href="https://gemini.google.com" target="_blank" class="text-purple-400 underline hover:text-purple-300">Gemini</a>). Modifica los datos entre corchetes <code>[ ]</code> del siguiente prompt maestro y procésalo para obtener la escaleta técnica de tu campaña de video.
+        <div class="step-item">
+          <div class="step-number">1</div>
+          <h4 style="font-weight: 700; color: #FFFFFF; font-size: 1rem;">Paso 1: Ingeniería de Guión Audiovisual Persuasivo (1 Hora)</h4>
+          <p style="color: #94A3B8; font-size: 0.875rem; margin-top: 0.25rem;">
+            Ingresa a tu modelo de lenguaje conversacional (<a href="https://chatgpt.com" target="_blank" style="color: #C084FC; text-decoration: underline;">ChatGPT</a> o <a href="https://gemini.google.com" target="_blank" style="color: #C084FC; text-decoration: underline;">Gemini</a>). Modifica los datos entre corchetes <code>[ ]</code> del siguiente prompt maestro y procésalo para obtener la escaleta técnica de tu campaña de video.
           </p>
 
-          <div class="bg-slate-950 text-slate-300 rounded-xl p-5 relative font-mono text-xs md:text-sm border border-slate-800 shadow-inner mt-4">
-            <button onclick="copyPromptToClipboard('prompt-m4-guion')" class="absolute right-3 top-3 bg-purple-600 hover:bg-purple-700 text-white text-xs font-bold py-1.5 px-3 rounded-lg flex items-center gap-1.5 transition-colors shadow shadow-black">
-              <i data-lucide="copy" class="w-3.5 h-3.5"></i> Copiar Prompt de Guión
+          <div class="prompt-box">
+            <button onclick="copyPromptToClipboard('prompt-m4-guion')" class="prompt-btn">
+              <i data-lucide="copy" style="width: 0.875rem; height: 0.875rem;"></i> Copiar Prompt de Guión
             </button>
-            <div id="prompt-m4-guion" class="whitespace-pre-line pr-16 pt-4 leading-relaxed text-slate-400 select-all">
-              [ROL]: Actúa como un Director de Cine Publicitario y Consultor de Estrategia de Contenidos Virales en Redes Sociales para el sector turístico.
-              [CONTEXTO]: Estoy produciendo un video publicitario vertical de 30 segundos para promocionar mi negocio o ruta turística en La Ceja, Antioquia. El producto es [Escribe detalladamente tu propuesta, ej: hospedaje campestre en domos / ruta de senderismo ecológico al Salto del Buey / restaurante gourmet de postres tradicionales]. Mi meta es capturar la atención de viajeros de Medellín para que reserven el fin de semana.
-              [TAREA]: Diseña una escaleta técnica de guión audiovisual dividida exactamente de la siguiente manera:
-              1. Bloque de Gancho (Segundos 00 a 03): Texto llamativo e intrigante que debe salir en pantalla y locución sugerida para retener al usuario.
-              2. Bloque de Desarrollo (Segundos 03 a 22): Guía detallada de las tomas visuales que debo grabar (recursos b-roll) y el texto de la voz en off que explicará los beneficios de la experiencia.
-              3. Bloque de Cierre y CTA (Segundos 22 a 30): Instrucción clara de llamado a la acción (ej: cómo cotizar en el enlace del perfil).
-              4. Ideas de hashtags de alta indexación orgánica y palabras clave SEO recomendadas para el texto de la descripción.
-              [ESPECIFICACIÓN]: Presenta el guión estructurado en formato de tabla o viñetas muy limpias, separando claramente lo que se ve (tomas de video) de lo que se escucha (locución).
+            <div id="prompt-m4-guion" class="prompt-code">
+[ROL]: Actúa como un Director de Cine Publicitario y Consultor de Estrategia de Contenidos Virales en Redes Sociales para el sector turístico.
+[CONTEXTO]: Estoy produciendo un video publicitario vertical de 30 segundos para promocionar mi negocio o ruta turística en La Ceja, Antioquia. El producto es [Escribe detalladamente tu propuesta, ej: hospedaje campestre en domos / ruta de senderismo ecológico al Salto del Buey / restaurante gourmet de postres tradicionales]. Mi meta es capturar la atención de viajeros de Medellín para que reserven el fin de semana.
+[TAREA]: Diseña una escaleta técnica de guión audiovisual dividida exactamente de la siguiente manera:
+1. Bloque de Gancho (Segundos 00 a 03): Texto llamativo e intrigante que debe salir en pantalla y locución sugerida para retener al usuario.
+2. Bloque de Desarrollo (Segundos 03 a 22): Guía detallada de las tomas visuales que debo grabar (recursos b-roll) y el texto de la voz en off que explicará los beneficios de la experiencia.
+3. Bloque de Cierre y CTA (Segundos 22 a 30): Instrucción clara de llamado a la acción (ej: cómo cotizar en el enlace del perfil).
+4. Ideas de hashtags de alta indexación orgánica y palabras clave SEO recomendadas para el texto de la descripción.
+[ESPECIFICACIÓN]: Presenta el guión estructurado en formato de tabla o viñetas muy limpias, separando claramente lo que se ve (tomas de video) de lo que se escucha (locución).
             </div>
           </div>
         </div>
 
-        <div class="relative">
-          <div class="absolute -left-[35px] top-0.5 bg-slate-900 text-slate-300 border border-slate-700 w-5 h-5 rounded-full flex items-center justify-center text-xs font-bold shadow-md">2</div>
-          <h4 class="font-bold text-white text-base">Paso 2: Captura y Recopilación de Recursos Multimedia (30 Minutos)</h4>
-          <p class="text-slate-400 text-xs md:text-sm mt-1 leading-relaxed">
-            Basándote en las tomas recomendadas en el paso anterior, recopila de 5 a 8 clips de video cortos (de 3 a 5 segundos cada uno) grabados con tu teléfono celular en formato vertical (9:16). <span class="text-orange-400 font-semibold">Consejo técnico:</span> Si aún no tienes videos grabados de tu negocio, puedes usar repositorios gratuitos de stock de video de alta calidad como Pexels o Pixabay de forma temporal para realizar la práctica de edición en el aula de clase.
+        <div class="step-item">
+          <div class="step-number">2</div>
+          <h4 style="font-weight: 700; color: #FFFFFF; font-size: 1rem;">Paso 2: Captura y Recopilación de Recursos Multimedia (30 Minutos)</h4>
+          <p style="color: #94A3B8; font-size: 0.875rem; margin-top: 0.25rem;">
+            Basándote en las tomas recomendadas en el paso anterior, recopila de 5 a 8 clips de video cortos (de 3 a 5 segundos cada uno) grabados con tu teléfono celular en formato vertical (9:16). <span style="color: #FB923C; font-weight: 600;">Consejo técnico:</span> Si aún no tienes videos grabados de tu negocio, puedes usar repositorios gratuitos de stock de video de alta calidad como Pexels o Pixabay de forma temporal para realizar la práctica de edición en el aula de clase.
           </p>
         </div>
 
-        <div class="relative">
-          <div class="absolute -left-[35px] top-0.5 bg-slate-900 text-slate-300 border border-slate-700 w-5 h-5 rounded-full flex items-center justify-center text-xs font-bold shadow-md">3</div>
-          <h4 class="font-bold text-white text-base">Paso 3: Edición Automatizada e Inteligencia de Voz en CapCut (1 Hora y 30 Minutos)</h4>
-          <p class="text-slate-400 text-xs md:text-sm mt-1 leading-relaxed mb-4">
+        <div class="step-item">
+          <div class="step-number">3</div>
+          <h4 style="font-weight: 700; color: #FFFFFF; font-size: 1rem;">Paso 3: Edición Automatizada e Inteligencia de Voz en CapCut (1 Hora y 30 Minutos)</h4>
+          <p style="color: #94A3B8; font-size: 0.875rem; margin-top: 0.25rem; margin-bottom: 1rem;">
             Abre la aplicación de <strong>CapCut</strong> (en tu celular o computador) o ingresa a su suite web oficial. Ejecuta paso a paso el siguiente manual técnico de edición asistida para ensamblar tu pieza publicitaria final:
           </p>
 
-          <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 space-y-4 text-xs md:text-sm text-slate-300 font-light leading-relaxed">
+          <div style="background-color: #0F172A; border: 1px solid #1E293B; border-radius: 1rem; padding: 1.5rem; display: flex; flex-direction: column; gap: 1rem; font-size: 0.875rem; color: #CBD5E1; font-weight: 300;">
             <div>
-              <span class="text-orange-400 font-bold block uppercase tracking-wider text-[11px] mb-1">A. Importación y Recorte de Ritmo</span>
+              <span style="color: #FB923C; font-weight: 700; text-transform: uppercase; font-size: 11px; display: block; margin-bottom: 0.25rem;">A. Importación y Recorte de Ritmo</span>
               Crea un nuevo proyecto, importa tus clips de video y ordénalos en la línea de tiempo siguiendo la estructura del guión (Gancho, Desarrollo, CTA). Recorta cada clip para que dure máximo 3 o 4 segundos; esto le dará un ritmo dinámico y evitará que el espectador se aburra.
             </div>
             <div>
-              <span class="text-orange-400 font-bold block uppercase tracking-wider text-[11px] mb-1">B. Síntesis de Voz Artificial (Texto a Voz)</span>
+              <span style="color: #FB923C; font-weight: 700; text-transform: uppercase; font-size: 11px; display: block; margin-bottom: 0.25rem;">B. Síntesis de Voz Artificial (Texto a Voz)</span>
               Selecciona la herramienta de <strong>Texto</strong>, añade un cuadro de diálogo y escribe o pega el texto de la locución que diseñó la IA en la Fase 1. Luego, pulsa la herramienta inferior llamada <strong>"Texto a voz"</strong>. Selecciona una de las voces profesionales inteligentes en español (ej: <em>"Masculino tierno" o "Femenino seguro"</em>). La IA generará de forma automática una pista de audio fluida con locución profesional, eliminando la necesidad de usar micrófonos externos. Puedes borrar el cuadro de texto original para limpiar la pantalla.
             </div>
             <div>
-              <span class="text-orange-400 font-bold block uppercase tracking-wider text-[11px] mb-1">C. Generación de Subtítulos Dinámicos Automatizados</span>
+              <span style="color: #FB923C; font-weight: 700; text-transform: uppercase; font-size: 11px; display: block; margin-bottom: 0.25rem;">C. Generación de Subtítulos Dinámicos Automatizados</span>
               Dirígete al menú de <strong>Texto</strong>, dentro de las opciones, selecciona Subtítulos automáticos. Selecciona el idioma (Español) y haz clic en <em>Crear</em>. La IA de CapCut escuchará la voz artificial creada en el paso anterior y transcribirá todo el audio en bloques de subtítulos perfectamente sincronizados en menos de 10 segundos. Aplica un estilo llamativo (fuente en negrita, colores contrastantes como amarillo o blanco con bordes negros) para retener la atención del usuario en entornos silenciosos.
             </div>
             <div>
-              <span class="text-orange-400 font-bold block uppercase tracking-wider text-[11px] mb-1">D. Exportación y Entrega Formal</span>
+              <span style="color: #FB923C; font-weight: 700; text-transform: uppercase; font-size: 11px; display: block; margin-bottom: 0.25rem;">D. Exportación y Entrega Formal</span>
               Agrega una pista de música de fondo en tendencia con volumen bajo (máximo en -15dB para no opacar la voz principal). Exporta el video configurando la resolución en <strong>1080p</strong> y a <strong>30 fotogramas por segundo (fps)</strong>. Sube el archivo final a una carpeta compartida de Google Drive, copia el enlace con permisos de lectura y cárgalo en la plataforma del curso junto con tu bitácora de prompts en un formato PDF integrado.
             </div>
           </div>
@@ -280,30 +602,30 @@
 
   </main>
 
-  <div id="toast-notif" class="fixed bottom-6 right-6 bg-slate-900 border border-slate-800 text-white text-sm py-4 px-6 rounded-2xl shadow-2xl flex items-center gap-3 transform translate-y-4 opacity-0 pointer-events-none transition-all duration-300 z-50">
-    <div class="w-5 h-5 bg-emerald-500 text-slate-950 rounded-full flex items-center justify-center shadow shadow-emerald-400"><i data-lucide="check" class="w-3.5 h-3.5"></i></div>
-    <span class="font-medium text-xs md:text-sm">Escaleta de guión publicitario copiada con éxito al portapapeles.</span>
+  <!-- TOAST ALERTA -->
+  <div id="toast-notif" class="toast">
+    <div class="toast-icon"><i data-lucide="check" style="width: 0.875rem; height: 0.875rem;"></i></div>
+    <span style="font-weight: 500; font-size: 0.875rem;">Escaleta de guión publicitario copiada con éxito al portapapeles.</span>
   </div>
 
-  <footer class="bg-slate-950 text-slate-400 text-center py-8 px-6 border-t border-slate-900 text-xs">
-    <div class="max-w-6xl mx-auto space-y-2">
-      
-      <div class="flex flex-wrap items-center justify-center gap-6 mb-4">
-        <img src="cropped-logo-cetasdi-actualizado.jpg.jpeg" alt="Logo Cetasdi" class="h-10 w-auto object-contain rounded-md bg-white/90 p-1 shadow-sm">
-        <img src="logo-la-ceja.png" alt="Logo La Ceja" class="h-10 w-auto object-contain rounded-md bg-white/90 p-1 shadow-sm">
-        <img src="logo-la-ceja-cuida-y-florece.png" alt="Logo La Ceja Cuida y Florece" class="h-10 w-auto object-contain rounded-md bg-white/90 p-1 shadow-sm">
+  <!-- FOOTER -->
+  <footer>
+    <div style="max-width: 1150px; margin: 0 auto;">
+      <div class="footer-logos">
+        <img src="cropped-logo-cetasdi-actualizado.jpg.jpeg" alt="Logo Cetasdi" onerror="this.style.display='none'">
+        <img src="logo-la-ceja.jpg" alt="Escudo La Ceja" style="background: #000; border: 1px solid #334155;" onerror="this.style.display='none'">
+        <img src="logo-la-ceja-cuida-y-florece.png" alt="Logo La Ceja Cuida y Florece" onerror="this.style.display='none'">
       </div>
-
-      <p class="font-bold text-slate-200 text-sm tracking-wide">La Ceja de las Flores y las Bicicletas - Territorio Turístico Inteligente</p>
-      <p class="text-slate-500">Programa Internacional de Innovación y Alta Competitividad Comercial con Inteligencia Artificial.</p>
+      <p style="font-weight: 700; color: #E2E8F0; font-size: 0.875rem; margin-bottom: 0.25rem;">La Ceja de las Flores y las Bicicletas - Territorio Turístico Inteligente</p>
+      <p style="color: #64748B;">Programa Internacional de Innovación y Alta Competitividad Comercial con Inteligencia Artificial.</p>
     </div>
   </footer>
 
   <script>
-    // Inicializa los íconos de la librería Lucide
-    lucide.createIcons();
+    if (typeof lucide !== 'undefined') {
+      lucide.createIcons();
+    }
 
-    // Sistema seguro para copiar código de texto en el portapapeles
     function copyPromptToClipboard(id) {
       const contenidoPrompt = document.getElementById(id).innerText;
       
@@ -314,15 +636,11 @@
       document.execCommand("copy");
       document.body.removeChild(elementoAuxiliar);
 
-      // Despliegue visual de la alerta Toast
       const toast = document.getElementById("toast-notif");
-      toast.classList.remove("opacity-0", "translate-y-4", "pointer-events-none");
-      toast.classList.add("opacity-100", "translate-y-0");
+      toast.classList.add("show");
 
-      // Ocultar notificación de forma automática
       setTimeout(() => {
-        toast.classList.add("opacity-0", "translate-y-4", "pointer-events-none");
-        toast.classList.remove("opacity-100", "translate-y-0");
+        toast.classList.remove("show");
       }, 3500);
     }
   </script>
